@@ -33,6 +33,21 @@ public class Piece {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Piece piece = (Piece) o;
+        return value == piece.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return value;
+    }
+
+    @Override
     public String toString() {
         return "Piece with value: " + this.value;
     }

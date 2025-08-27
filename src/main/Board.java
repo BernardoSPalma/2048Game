@@ -38,8 +38,8 @@ public class Board {
      * @param col column of the location
      * @return the piece value of the location
      */
-    public int seePiece(int row, int col){
-        return this.board[row][col].value();
+    public Piece seePiece(int row, int col){
+        return this.board[row - 1][col - 1];
     }
 
     @Override
