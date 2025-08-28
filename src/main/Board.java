@@ -33,6 +33,27 @@ public class Board {
     }
 
     /**
+     * Remove one piece on the board
+     * @param row row where the piece is
+     * @param col column where the piece is
+     */
+    public void removePiece(int row, int col){
+        this.board[row - 1][col - 1] = new Piece(0);
+    }
+
+    /**
+     * Moves a piece to a diferent Location, if there is one piece in the final location that piece is removed
+     * @param initRow row of the piece to change
+     * @param initCol col of the piece to change
+     * @param finalRow row of the final position
+     * @param finalCol col of the final position
+     */
+    public void movePiece(int initRow, int initCol, int finalRow, int finalCol){
+        this.board[finalRow - 1][finalCol - 1] = this.board[initRow][initCol];
+        this.board[initRow][initCol] = new Piece(0);
+    }
+
+    /**
      * See the piece value of a certain location
      * @param row row of the location
      * @param col column of the location
@@ -40,6 +61,10 @@ public class Board {
      */
     public Piece seePiece(int row, int col){
         return this.board[row - 1][col - 1];
+    }
+
+    public int size(){
+        return this.BOARDSIZE;
     }
 
     @Override
@@ -52,5 +77,23 @@ public class Board {
             output.append("\n");
         }
         return output.toString();
+    }
+
+    public boolean isRowClear(int rowNumber){
+        for(int i = 0; i < board.length; i++){
+            if(this.board[rowNumber - 1][i].value() != 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isColumnClear(int colNumber){
+        for(int i = 0; i < this.board.length; i++){
+            if(this.board[i][colNumber - 1].value() != 0){
+                return false;
+            }
+        }
+        return true;
     }
 }
