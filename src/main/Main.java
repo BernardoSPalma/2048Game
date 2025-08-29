@@ -2,7 +2,12 @@ package main;
 
 public class Main {
     public static void main(String[] args) {
-        Board board = new Board();
-        System.out.println(board);
+        Game g = new Game();
+        g.addPiece(new Piece(2),1,1);
+        g.addPiece(new Piece(2),1,3);
+        System.out.println(g);
+        g.movement("A");
+        System.out.println(g);
+
     }
 }
