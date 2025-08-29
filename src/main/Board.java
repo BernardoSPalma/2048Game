@@ -29,7 +29,7 @@ public class Board {
      * @param col column where the piece is going
      */
     public void addPiece(Piece p, int row, int col){
-        this.board[row - 1][col - 1] = p;
+        this.board[row][col] = p;
     }
 
     /**
@@ -38,7 +38,7 @@ public class Board {
      * @param col column where the piece is
      */
     public void removePiece(int row, int col){
-        this.board[row - 1][col - 1] = new Piece(0);
+        this.board[row][col] = new Piece(0);
     }
 
     /**
@@ -49,7 +49,7 @@ public class Board {
      * @param finalCol col of the final position
      */
     public void movePiece(int initRow, int initCol, int finalRow, int finalCol){
-        this.board[finalRow - 1][finalCol - 1] = this.board[initRow][initCol];
+        this.board[finalRow][finalCol] = this.board[initRow][initCol];
         this.board[initRow][initCol] = new Piece(0);
     }
 
@@ -60,7 +60,7 @@ public class Board {
      * @return the piece value of the location
      */
     public Piece seePiece(int row, int col){
-        return this.board[row - 1][col - 1];
+        return this.board[row][col];
     }
 
     public int size(){
@@ -81,7 +81,7 @@ public class Board {
 
     public boolean isRowClear(int rowNumber){
         for(int i = 0; i < board.length; i++){
-            if(this.board[rowNumber - 1][i].value() != 0){
+            if(this.board[rowNumber][i].value() != 0){
                 return false;
             }
         }
@@ -90,7 +90,7 @@ public class Board {
 
     public boolean isColumnClear(int colNumber){
         for(int i = 0; i < this.board.length; i++){
-            if(this.board[i][colNumber - 1].value() != 0){
+            if(this.board[i][colNumber].value() != 0){
                 return false;
             }
         }

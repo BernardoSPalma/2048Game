@@ -31,17 +31,19 @@ public class Game {
 
     private void movementLeft(){
         //verificar as linhas que nao estao vazias
-        for(int i = 1; i <= this.boardGame.size(); i++){
-            if(!boardGame.isRowClear(i)){
+        for(int row = 0; row < this.boardGame.size(); row++){
+            if(!boardGame.isRowClear(row)){
                 //Logica do movimento
-                for(int j = 2; j <= boardGame.size(); i++){
-                    int squareNum = j;
-                    while(squareNum - 1 > 0 && this.boardGame.seePiece(i,squareNum - 1).value() == 0){
-                        this.boardGame.movePiece(i,squareNum,i,squareNum - 1);
-                        squareNum--;
+                for(int col = 1; col < this.boardGame.size(); col++){
+                    if(this.boardGame.seePiece(row,col).value() != 0){
+                        int colWithPiece = col;
+                        while(colWithPiece - 1 >= 0 && this.boardGame.seePiece(row, colWithPiece - 1).value() == 0){
+                            this.boardGame.movePiece(row, colWithPiece, row,colWithPiece - 1);
+                            colWithPiece --;
+                        }
                     }
                 }
-                //logica das somas
+                //Logica das fusoes
             }
         }
     }
@@ -58,4 +60,7 @@ public class Game {
 
     }
 
+    @Override public String toString() {
+        return this.boardGame.toString();
+    }
 }
