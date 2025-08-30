@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Locale;
+
 public class Game {
 
     private final Board boardGame;
@@ -9,12 +11,13 @@ public class Game {
     }
 
     public void movement(String key){
+        key = key.toUpperCase();
         switch(key){
             case "A":
                 Left();
                 break;
             case "S":
-                movementDown();
+                Down();
                 break;
             case "D":
                 movementRight();
@@ -63,8 +66,36 @@ public class Game {
         }
     }
 
-    private void movementDown(){
+    private void Down(){
+        for(int col = 0; col < this.boardGame.size(); col++){
+            if(!this.boardGame.isColumnClear(col)) {
+                movementDown(col);
+                collisionDown(col);
+                movementDown(col);
+            }
+        }
+    }
 
+    private void movementDown(int col){
+        for(int row = this.boardGame.size() - 2; row >= 0; row --){
+            if(this.boardGame.seePiece(row, col).value() != 0){
+                int rowWithPiece = row;
+                while(rowWithPiece < this.boardGame.size() && this.boardGame.seePiece(row + 1, col).value() == 0){
+                    this.boardGame.movePiece(rowWithPiece, col, rowWithPiece + 1, col);
+                    rowWithPiece --;
+                }
+            }
+        }
+    }
+
+    private void collisionDown(int col){
+        for(int row = this.boardGame.size() - 1; row >= 0; row--){
+            Piece p = this.boardGame.seePiece(row,col);
+            if(p.value() != 0 && p.value() == this.boardGame.seePiece(row - 1, col).value()){
+                this.boardGame.addPiece(new Piece(p.value() * 2), row, col);
+                this.boardGame.removePiece(row - 1, col);
+            }
+        }
     }
 
     private void movementRight(){
